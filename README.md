@@ -1,23 +1,23 @@
 <h1>Webhook raspberry pi docker container repull and buled</h1>
 
-webhook for automatisation when a new docker get a new image it wil call  web hook on raspberry and that webhook run docker-compose to refresh all images.
+Webhook for automatisation when a new image pushed to dockerhub, it wil call a webhook that is running on raspberry pi and is resposible for run docker-compose to refresh all images.
 
-we need to install Flask
+First install Flask in raspberry pi
 ```
 python -m pip install Flask
 ```
 
-copy main.py to raspberry pi onder /home/pi/docker
+Copy main.py to raspberry pi onder /home/pi/docker
 
-first make a service that call the script
+First make a service that call the script 
 ```
 cd /lib/systemd/system/
 sudo nano webhook.service
 ```
 
-the service definition is as below 
+The service definition is as below 
 ```
-Unit]
+[Unit]
 Description=webhook to automat get new images by docker-compose
 After=multi-user.target
 
@@ -30,7 +30,7 @@ Restart=on-abort
 WantedBy=multi-user.target
 ```
 
-run commands bellow
+Run commands bellow
 ```
 sudo chmod 644 /lib/systemd/system/webhook.service
 chmod +x /home/pi/docker/main.py
@@ -39,16 +39,16 @@ sudo systemctl enable webhook.service
 sudo systemctl start webhook.service
 ```
 
-now add a cronjob to run service at restart
+Now add a cronjob to run service at restart
 ```
 @reboot [sudo systemctl start webhook.service]
 ```
 
-we also here have cronjob to run dockers when reboot
+Also here have add a cronjob to run dockers when reboot it used when raspberry pi goes down
 ```
 @reboot [sudo systemctl start docker]
 ```
 
-last step is to make your webhook avalaible from outside 
+Make webhook avalaible from outside local network by port forwarding and reverse proxy
 
-and add webhook to dockerhub
+last step is to add webhook to dockerhub onder repository.
