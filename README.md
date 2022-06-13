@@ -1,4 +1,4 @@
-<h1>Webhook raspberry pi docker container repull and buled</h1>
+<h1>Webhook raspberry pi docker</h1>
 
 Webhook for automatisation when a new image pushed to dockerhub, it wil call a webhook that is running on raspberry pi and is resposible for run docker-compose to refresh all images.
 
