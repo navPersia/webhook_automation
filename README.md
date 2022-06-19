@@ -1,6 +1,7 @@
 <h1>Webhook raspberry pi docker</h1>
 
-Webhook for automatisation when a new image pushed to dockerhub, it wil call a webhook that is running on raspberry pi and is resposible for run docker-compose to refresh all images.
+Webhook for automatisation.
+When webhook called, it wil call docker-compose file to get the last image en run it.
 
 First install Flask in raspberry pi
 ```
